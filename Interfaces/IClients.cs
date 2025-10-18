@@ -1,12 +1,13 @@
 using RuedasFelices.Models;
 
-namespace RuedasFelices.Data;
+namespace RuedasFelices.Interfaces;
 
-public static class Database
+public interface IClient
 {
-    public static List<Client> Clients = [];
-    public static List<Inspector> Inspectors = [];
-    public static List<Vehicle> Vehicles = [];
-    public static List<Appointment> Appointments = [];
-    public static List<EmailLog> EmailLogs = [];
+    void Add(Client client);
+    void Update(Client client);
+    void Delete(Guid id);
+    Client? GetById(Guid id);
+    Client? GetByIdentification(string identification);
+    List<Client> GetAll();
 }

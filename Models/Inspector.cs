@@ -1,4 +1,4 @@
-namespace CDA_Ruedas_Felices.Models
+namespace RuedasFelices.Models
 {
     public enum InspectionType
     {
