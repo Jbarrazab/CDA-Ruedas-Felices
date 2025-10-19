@@ -152,15 +152,16 @@ and can be viewed through:
 
 Main Menu → Option 5 (Email Log)
 
+## Author
 
+**Developed by:** Jafit Barraza Barbosa  
+**Team:** Academic Development Team — *CDA Ruedas Felices Project*  
+**Group:** Clán Caimán  
+**Email:** [jafitbarrazabarbosa@gmail.com](mailto:jafitbarrazabarbosa@gmail.com)
 
- Author
+---
 
-Developed by: Jafit Barraza Barbosa
-Academic Development Team — CDA Ruedas Felices Project
- Based on the performance test: Mechanical Inspection Scheduling System
-References: SanVicenteHospital and MedicalAppointments repositories on GitHub.
-License
+## License
 
-This project is released under the MIT License.
-You are free to use, modify, and distribute it for educational or personal purposes.
+This project is released under the **MIT License**.  
+You are free to **use**, **modify**, and **distribute** it for educational or personal purposes.
