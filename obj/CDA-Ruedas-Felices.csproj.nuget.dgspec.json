@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/Coder/Documentos/C#/CDA-Ruedas-Felices/CDA-Ruedas-Felices.csproj": {}
+    "/home/jafit/Documentos/C#2/PruebaC-sharp/CDA-Ruedas-Felices/CDA-Ruedas-Felices.csproj": {}
   },
   "projects": {
-    "/home/Coder/Documentos/C#/CDA-Ruedas-Felices/CDA-Ruedas-Felices.csproj": {
+    "/home/jafit/Documentos/C#2/PruebaC-sharp/CDA-Ruedas-Felices/CDA-Ruedas-Felices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/Coder/Documentos/C#/CDA-Ruedas-Felices/CDA-Ruedas-Felices.csproj",
+        "projectUniqueName": "/home/jafit/Documentos/C#2/PruebaC-sharp/CDA-Ruedas-Felices/CDA-Ruedas-Felices.csproj",
         "projectName": "CDA-Ruedas-Felices",
-        "projectPath": "/home/Coder/Documentos/C#/CDA-Ruedas-Felices/CDA-Ruedas-Felices.csproj",
-        "packagesPath": "/home/Coder/.nuget/packages/",
-        "outputPath": "/home/Coder/Documentos/C#/CDA-Ruedas-Felices/obj/",
+        "projectPath": "/home/jafit/Documentos/C#2/PruebaC-sharp/CDA-Ruedas-Felices/CDA-Ruedas-Felices.csproj",
+        "packagesPath": "/home/jafit/.nuget/packages/",
+        "outputPath": "/home/jafit/Documentos/C#2/PruebaC-sharp/CDA-Ruedas-Felices/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/Coder/.nuget/NuGet/NuGet.Config"
+          "/home/jafit/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.121/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.120/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
