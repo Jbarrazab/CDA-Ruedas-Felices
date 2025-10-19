@@ -1,2 +1,16 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using DotNetEnv;
+using RuedasFelices.Menus;
+
+namespace RuedasFelices;
+
+class Program
+{
+    static void Main()
+    {
+        // Load environment variables from .env
+        Env.Load();
+
+        // Launch the main menu
+        MainMenu.Show();
+    }
+}

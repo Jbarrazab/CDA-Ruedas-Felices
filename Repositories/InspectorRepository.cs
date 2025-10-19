@@ -4,7 +4,7 @@ using RuedasFelices.Models;
 
 namespace RuedasFelices.Repositories;
 
-public class InspectorRepository : IInspector
+public class InspectorRepository : IInspectorRepository
 {
     private readonly List<Inspector> _inspectors = Database.Inspectors;
 

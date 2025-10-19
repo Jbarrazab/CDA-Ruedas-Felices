@@ -4,7 +4,7 @@ using RuedasFelices.Models;
 
 namespace RuedasFelices.Repositories;
 
-public class ClientRepository : IClient
+public class ClientRepository : IClientRepository
 {
     private readonly List<Client> _clients = Database.Clients;
 

@@ -4,7 +4,7 @@ using RuedasFelices.Models;
 
 namespace RuedasFelices.Repositories;
 
-public class VehicleRepository : IVehicle
+public class VehicleRepository : IVehicleRepository
 {
     private readonly List<Vehicle> _vehicles = Database.Vehicles;
 
@@ -24,7 +24,7 @@ public class VehicleRepository : IVehicle
             existing.Brand = vehicle.Brand;
             existing.Model = vehicle.Model;
             existing.Year = vehicle.Year;
-            // VehicleType property does not exist on Vehicle model; skip assignment
+            existing.VehicleType = vehicle.VehicleType;
             existing.ClientId = vehicle.ClientId;
         }
     }

@@ -4,7 +4,7 @@ using RuedasFelices.Models;
 
 namespace RuedasFelices.Repositories;
 
-public class AppointmentRepository : IAppointment
+public class AppointmentRepository : IAppointmentRepository
 {
     private readonly List<Appointment> _appointments = Database.Appointments;
     private readonly List<Vehicle> _vehicles = Database.Vehicles;
