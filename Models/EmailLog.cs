@@ -1,15 +1,36 @@
 namespace RuedasFelices.Models;
 
+public enum SendStatus
+{
+    Sent,
+    NotSent
+}
+
 public class EmailLog
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
-    public string ToEmail { get; set; }
+    public Guid Id { get; set; }
+    public string To { get; set; }
     public string Subject { get; set; }
-    public DateTime SentDate { get; set; }
-    public bool SentSuccessfully { get; set; }
+    public string Body { get; set; }
+    public DateTime Date { get; set; }
+    public SendStatus Status { get; set; }
 
-    public override string ToString()
+    // Reference to the entity related to this email (e.g., Appointment Id)
+    public Guid? ReferenceId { get; set; }
+
+    public EmailLog(string to, string subject, string body, SendStatus status, Guid? referenceId = null)
     {
-        return $"Id: {Id}, To: {ToEmail}, Subject: {Subject}, SentDate: {SentDate}, SentSuccessfully: {SentSuccessfully}";
+        Id = Guid.NewGuid();
+        To = to;
+        Subject = subject;
+        Body = body;
+        Date = DateTime.Now;
+        Status = status;
+        ReferenceId = referenceId;
+    }
+
+    public void ShowInformation()
+    {
+        Console.WriteLine($"ID: {Id}, To: {To}, Subject: {Subject}, Status: {Status}, Date: {Date}, Reference: {ReferenceId}");
     }
 }
