@@ -18,7 +18,7 @@ public static class AppointmentMenu
             Console.WriteLine("3. Complete appointment");
             Console.WriteLine("0. Back to Main Menu");
             Console.WriteLine("==============================================");
-            Console.Write("Select an option 0-3: ");
+            Console.Write("Select an option: ");
             var option = Console.ReadLine();
 
             switch (option)
@@ -35,7 +35,7 @@ public static class AppointmentMenu
                 case "0":
                     return;
                 default:
-                    Console.WriteLine("Invalid option. Try again and select an option 0-3.");
+                    Console.WriteLine("Invalid option. Try again.");
                     break;
             }
 
@@ -54,24 +54,51 @@ public static class AppointmentMenu
 
         try
         {
-            Console.Write("Vehicle ID: ");
-            Guid vehicleId = Guid.Parse(Console.ReadLine() ?? "");
+            // Ask for vehicle plate
+            Console.Write("Vehicle plate: ");
+            string? plate = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(plate))
+            {
+                Console.WriteLine("Error: Plate cannot be empty.");
+                return;
+            }
 
-            Console.Write("Inspector ID: ");
-            Guid inspectorId = Guid.Parse(Console.ReadLine() ?? "");
+            // Search vehicle by plate
+            var vehicle = appointmentService.GetVehicleByPlate(plate);
+            if (vehicle == null)
+            {
+                Console.WriteLine("Error: Vehicle not found.");
+                return;
+            }
 
+            // Ask for inspector identification
+            Console.Write("Inspector identification: ");
+            string? inspectorId = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(inspectorId))
+            {
+                Console.WriteLine("Error: Identification cannot be empty.");
+                return;
+            }
+
+            // Search inspector by identification
+            var inspector = appointmentService.GetInspectorByIdentification(inspectorId);
+            if (inspector == null)
+            {
+                Console.WriteLine("Error: Inspector not found.");
+                return;
+            }
+
+            // Ask for date/time
             Console.Write("Date and Time (yyyy-MM-dd HH:mm): ");
             DateTime date = DateTime.Parse(Console.ReadLine() ?? "");
 
-            // Create appointment
-            var appointment = new Appointment(vehicleId, inspectorId, date);
-
-            // Add appointment (service validates conflicts and duration)
+            // Create and schedule appointment
+            var appointment = new Appointment(vehicle.Id, inspector.Id, date);
             appointmentService.Add(appointment);
         }
         catch (FormatException)
         {
-            Console.WriteLine("Error: Invalid data format. Please check IDs and date format.");
+            Console.WriteLine("Error: Invalid data format. Please check date/time format.");
         }
         catch (Exception ex)
         {

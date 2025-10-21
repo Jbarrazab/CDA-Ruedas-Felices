@@ -103,6 +103,18 @@ public class AppointmentService
         _appointmentRepository.Update(appointment);
         Console.WriteLine("Appointment completed successfully.");
     }
+    // Helper: Get vehicle by plate
+    public Vehicle? GetVehicleByPlate(string plate)
+    {
+        return _vehicleRepository.GetByPlate(plate);
+    }
+
+    // Helper: Get inspector by identification
+    public Inspector? GetInspectorByIdentification(string identification)
+    {
+        return _inspectorRepository.GetByIdentification(identification);
+    }
+
 
     // Conflict detection: same inspector or vehicle within same hour
     private bool HasConflict(Guid inspectorId, Guid vehicleId, DateTime start, DateTime end)
