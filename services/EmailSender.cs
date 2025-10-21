@@ -10,11 +10,22 @@ public class EmailSender : IEmailService
     {
         try
         {
-            // Read config from .env
+            // Load SMTP data from environment
             var host = Environment.GetEnvironmentVariable("SMTP_HOST");
-            var port = int.Parse(Environment.GetEnvironmentVariable("SMTP_PORT") ?? "587");
+            var portStr = Environment.GetEnvironmentVariable("SMTP_PORT");
             var user = Environment.GetEnvironmentVariable("SMTP_USER");
             var pass = Environment.GetEnvironmentVariable("SMTP_PASS");
+
+            // Validate
+            if (string.IsNullOrWhiteSpace(host) ||
+                string.IsNullOrWhiteSpace(user) ||
+                string.IsNullOrWhiteSpace(pass))
+            {
+                Console.WriteLine(" Email configuration is missing in .env file. Email not sent.");
+                return false;
+            }
+
+            int port = int.TryParse(portStr, out var p) ? p : 587;
 
             using var smtp = new SmtpClient(host, port)
             {
@@ -22,19 +33,23 @@ public class EmailSender : IEmailService
                 EnableSsl = true
             };
 
-            using var message = new MailMessage(user, to, subject, body)
+            using var message = new MailMessage
             {
+                From = new MailAddress(user),
+                Subject = subject,
+                Body = body,
                 IsBodyHtml = false
             };
 
+            message.To.Add(to);
             smtp.Send(message);
 
-            Console.WriteLine($"✅ Email sent successfully to {to}");
+            Console.WriteLine($" Email sent successfully to {to}");
             return true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"❌ Error sending email: {ex.Message}");
+            Console.WriteLine($" Error sending email: {ex.Message}");
             return false;
         }
     }
