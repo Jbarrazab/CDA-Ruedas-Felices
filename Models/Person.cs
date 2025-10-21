@@ -1,6 +1,6 @@
 namespace RuedasFelices.Models
 {
-    public class Person
+    public abstract class Person
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

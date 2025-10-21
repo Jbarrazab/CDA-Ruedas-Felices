@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CDA-Ruedas-Felices")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42579db3eadcf9f59b15159fdcee72fcff953b10")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b4e8a24ea2d3cf0416eb21edb53679537225a86")]
 [assembly: System.Reflection.AssemblyProductAttribute("CDA-Ruedas-Felices")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CDA-Ruedas-Felices")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
