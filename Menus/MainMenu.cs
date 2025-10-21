@@ -3,7 +3,6 @@ using RuedasFelices.Interfaces;
 using RuedasFelices.Repositories;
 using RuedasFelices.Services;
 
-
 namespace RuedasFelices.Menus;
 
 public static class MainMenu
@@ -17,7 +16,7 @@ public static class MainMenu
         IAppointmentRepository appointmentRepository = new AppointmentRepository();
         IEmailLogRepository emailLogRepository = new EmailLogRepository();
 
-        // Initialize infrastructure email service
+        // Initialize email infrastructure
         IEmailService emailSender = new EmailSender();
         EmailService emailService = new EmailService(emailSender, emailLogRepository);
 
@@ -33,8 +32,11 @@ public static class MainMenu
             emailService
         );
 
-        // Start menu navigation loop
-        while (true)
+        // Valid menu options
+        List<string> validOptions = new() { "0", "1", "2", "3", "4", "5" };
+        string? option = "";
+
+        while (option != "0")
         {
             Console.Clear();
             Console.WriteLine("==============================================");
@@ -47,36 +49,60 @@ public static class MainMenu
             Console.WriteLine("5. Email Log");
             Console.WriteLine("0. Exit");
             Console.WriteLine("==============================================");
-            Console.Write("Select an option: ");
-            var option = Console.ReadLine();
+            Console.Write("Select an option (0-5): ");
 
-            switch (option)
+            try
             {
-                case "1":
-                    ClientMenu.Show(clientService);
-                    break;
-                case "2":
-                    InspectorMenu.Show(inspectorService);
-                    break;
-                case "3":
-                    VehicleMenu.Show(vehicleService, clientService);
-                    break;
-                case "4":
-                    AppointmentMenu.Show(appointmentService);
-                    break;
-                case "5":
-                    EmailLogMenu.Show(emailService);
-                    break;
-                case "0":
-                    Console.WriteLine("Exiting the system...");
-                    return;
-                default:
-                    Console.WriteLine("Invalid option. Try again.");
-                    break;
+                option = Console.ReadLine()?.Trim() ?? "";
+
+                if (!validOptions.Contains(option))
+                {
+                    Console.WriteLine("\nInvalid option. Please try again to select an option (0-5).");
+                    PauseAndContinue();
+                    continue;
+                }
+
+                Console.Clear();
+
+                // Execute the selected menu
+                switch (option)
+                {
+                    case "1":
+                        ClientMenu.Show(clientService);
+                        break;
+                    case "2":
+                        InspectorMenu.Show(inspectorService);
+                        break;
+                    case "3":
+                        VehicleMenu.Show(vehicleService, clientService);
+                        break;
+                    case "4":
+                        AppointmentMenu.Show(appointmentService);
+                        break;
+                    case "5":
+                        EmailLogMenu.Show(emailService);
+                        break;
+                    case "0":
+                        Console.WriteLine("\nExiting the system...");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Catch all unexpected errors to prevent program crash
+                Console.WriteLine($"\nAn error occurred: {ex.Message}");
             }
 
-            Console.WriteLine("\nPress any key to return to the menu...");
-            Console.ReadKey();
+            if (option != "0")
+                PauseAndContinue();
         }
+    }
+
+    // Pause the console before returning to the main menu
+    private static void PauseAndContinue()
+    {
+        Console.WriteLine("\nPress any key to return to the menu...");
+        Console.ReadKey();
+        Console.Clear();
     }
 }

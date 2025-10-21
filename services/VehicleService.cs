@@ -67,7 +67,7 @@ public class VehicleService
 
         foreach (var vehicle in vehicles)
         {
-            Console.WriteLine($"Plate: {vehicle.Plate}, Brand: {vehicle.Brand}, Model: {vehicle.Model}, Year: {vehicle.Year}, Type: {vehicle.VehicleType}");
+            Console.WriteLine($"Guid: {vehicle.Id}, Plate: {vehicle.Plate}, Brand: {vehicle.Brand}, Model: {vehicle.Model}, Year: {vehicle.Year}, Type: {vehicle.VehicleType}");
         }
     }
 

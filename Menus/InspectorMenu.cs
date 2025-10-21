@@ -18,6 +18,7 @@ public static class InspectorMenu
             Console.WriteLine("3. List all inspectors");
             Console.WriteLine("4. List inspectors by inspection type");
             Console.WriteLine("0. Back to Main Menu");
+            Console.WriteLine("Option number (0-4)");
             Console.WriteLine("==============================================");
             Console.Write("Select an option: ");
             var option = Console.ReadLine();

@@ -17,6 +17,7 @@ public static class ClientMenu
             Console.WriteLine("2. Update client information");
             Console.WriteLine("3. List all clients");
             Console.WriteLine("0. Back to Main Menu");
+            Console.WriteLine("Option number (0-3)");
             Console.WriteLine("==============================================");
             Console.Write("Select an option: ");
             var option = Console.ReadLine();

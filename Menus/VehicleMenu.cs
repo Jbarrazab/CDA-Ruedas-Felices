@@ -18,6 +18,7 @@ public static class VehicleMenu
             Console.WriteLine("3. List all vehicles");
             Console.WriteLine("4. List vehicles by client");
             Console.WriteLine("0. Back to Main Menu");
+            Console.WriteLine("Option number (0-4)");
             Console.WriteLine("==============================================");
             Console.Write("Select an option: ");
             var option = Console.ReadLine();

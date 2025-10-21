@@ -18,7 +18,7 @@ public static class AppointmentMenu
             Console.WriteLine("3. Complete appointment");
             Console.WriteLine("0. Back to Main Menu");
             Console.WriteLine("==============================================");
-            Console.Write("Select an option: ");
+            Console.Write("Select an option 0-3: ");
             var option = Console.ReadLine();
 
             switch (option)
@@ -35,7 +35,7 @@ public static class AppointmentMenu
                 case "0":
                     return;
                 default:
-                    Console.WriteLine("Invalid option. Try again.");
+                    Console.WriteLine("Invalid option. Try again and select an option 0-3.");
                     break;
             }
 
@@ -44,37 +44,76 @@ public static class AppointmentMenu
         }
     }
 
+    // =======================
+    // Add a new appointment
+    // =======================
     private static void AddAppointment(AppointmentService appointmentService)
     {
         Console.Clear();
         Console.WriteLine("=== Schedule New Appointment ===");
 
-        Console.Write("Vehicle ID: ");
-        var vehicleIdString = Console.ReadLine() ?? "";
-        Guid.TryParse(vehicleIdString, out var vehicleId);
+        try
+        {
+            Console.Write("Vehicle ID: ");
+            Guid vehicleId = Guid.Parse(Console.ReadLine() ?? "");
 
-        Console.Write("Inspector ID: ");
-        var inspectorIdString = Console.ReadLine() ?? "";
-        Guid.TryParse(inspectorIdString, out var inspectorId);
+            Console.Write("Inspector ID: ");
+            Guid inspectorId = Guid.Parse(Console.ReadLine() ?? "");
 
-        Console.Write("Date (yyyy-mm-dd HH:mm): ");
-        DateTime.TryParse(Console.ReadLine(), out var date);
+            Console.Write("Date and Time (yyyy-MM-dd HH:mm): ");
+            DateTime date = DateTime.Parse(Console.ReadLine() ?? "");
 
-        var appointment = new Appointment(vehicleId, inspectorId, date);
-        appointmentService.Add(appointment);
+            // Create appointment
+            var appointment = new Appointment(vehicleId, inspectorId, date);
+
+            // Add appointment (service validates conflicts and duration)
+            appointmentService.Add(appointment);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Error: Invalid data format. Please check IDs and date format.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Unexpected error: {ex.Message}");
+        }
     }
 
+    // =======================
+    // Cancel appointment
+    // =======================
     private static void CancelAppointment(AppointmentService appointmentService)
     {
+        Console.Clear();
+        Console.WriteLine("=== Cancel Appointment ===");
+
         Console.Write("Enter Appointment ID: ");
-        Guid.TryParse(Console.ReadLine(), out var id);
-        appointmentService.Cancel(id);
+        if (Guid.TryParse(Console.ReadLine(), out Guid appointmentId))
+        {
+            appointmentService.Cancel(appointmentId);
+        }
+        else
+        {
+            Console.WriteLine("Error: Invalid Appointment ID.");
+        }
     }
 
+    // =======================
+    // Complete appointment
+    // =======================
     private static void CompleteAppointment(AppointmentService appointmentService)
     {
+        Console.Clear();
+        Console.WriteLine("=== Complete Appointment ===");
+
         Console.Write("Enter Appointment ID: ");
-        Guid.TryParse(Console.ReadLine(), out var id);
-        appointmentService.Complete(id);
+        if (Guid.TryParse(Console.ReadLine(), out Guid appointmentId))
+        {
+            appointmentService.Complete(appointmentId);
+        }
+        else
+        {
+            Console.WriteLine("Error: Invalid Appointment ID.");
+        }
     }
 }

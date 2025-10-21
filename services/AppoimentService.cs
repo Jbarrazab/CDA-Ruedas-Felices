@@ -1,9 +1,7 @@
 using RuedasFelices.Interfaces;
 using RuedasFelices.Models;
-using RuedasFelices.Services;
 
 namespace RuedasFelices.Services;
-
 
 public class AppointmentService
 {
@@ -27,7 +25,7 @@ public class AppointmentService
         _emailService = emailService;
     }
 
-    // Schedule a new appointment
+    // Schedule a new appointment (1-hour duration, prevent duplicates)
     public void Add(Appointment appointment)
     {
         var vehicle = _vehicleRepository.GetById(appointment.VehicleId);
@@ -44,34 +42,39 @@ public class AppointmentService
             return;
         }
 
-        // Validation: Compatibility between vehicle and inspection type
+        // Validate inspection type and vehicle type
         if (!IsCompatible(inspector.InspectionType, vehicle.VehicleType))
         {
             Console.WriteLine("Error: Inspector type is not compatible with vehicle type.");
             return;
         }
 
-        // Validation: prevent overlapping schedules
-        if (HasConflict(inspector.Id, vehicle.Id, appointment.Date))
+        // Duration: 1 hour
+        DateTime start = appointment.Date;
+        DateTime end = start.AddHours(1);
+
+        // Check conflicts (same hour)
+        if (HasConflict(inspector.Id, vehicle.Id, start, end))
         {
             Console.WriteLine("Error: Inspector or vehicle already has an appointment at this time.");
             return;
         }
 
         _appointmentRepository.Add(appointment);
-        Console.WriteLine("Appointment added successfully.");
+        Console.WriteLine("Appointment scheduled successfully.");
 
-        // Send email confirmation
+        // Email confirmation
         var client = _clientRepository.GetById(vehicle.ClientId);
         if (client != null)
         {
-            var body = $"Hello {client.Name}, your appointment for vehicle {vehicle.Plate} " +
-                       $"is scheduled on {appointment.Date}. Inspector: {inspector.Name} {inspector.LastName}.";
+            string body = $"Hello {client.Name}, your appointment for vehicle {vehicle.Plate} " +
+                          $"is scheduled on {appointment.Date:yyyy-MM-dd HH:mm}. " +
+                          $"Inspector: {inspector.Name} {inspector.LastName}.";
             _emailService.SendEmail(client.Email, "Appointment Confirmation", body, appointment.Id);
         }
     }
 
-    // Cancel an appointment
+    // Cancel appointment
     public void Cancel(Guid appointmentId)
     {
         var appointment = _appointmentRepository.GetById(appointmentId);
@@ -86,7 +89,7 @@ public class AppointmentService
         Console.WriteLine("Appointment canceled successfully.");
     }
 
-    // Complete an appointment
+    // Complete appointment
     public void Complete(Guid appointmentId)
     {
         var appointment = _appointmentRepository.GetById(appointmentId);
@@ -101,12 +104,21 @@ public class AppointmentService
         Console.WriteLine("Appointment completed successfully.");
     }
 
-    private bool HasConflict(Guid inspectorId, Guid vehicleId, DateTime date)
+    // Conflict detection: same inspector or vehicle within same hour
+    private bool HasConflict(Guid inspectorId, Guid vehicleId, DateTime start, DateTime end)
     {
         return _appointmentRepository.GetAll().Any(a =>
             a.Status == AppointmentStatus.Scheduled &&
-            (a.InspectorId == inspectorId || a.VehicleId == vehicleId) &&
-            a.Date == date);
+            (
+                (a.InspectorId == inspectorId && IsOverlapping(a.Date, a.Date.AddHours(1), start, end)) ||
+                (a.VehicleId == vehicleId && IsOverlapping(a.Date, a.Date.AddHours(1), start, end))
+            ));
+    }
+
+    // Overlap helper
+    private bool IsOverlapping(DateTime aStart, DateTime aEnd, DateTime bStart, DateTime bEnd)
+    {
+        return aStart < bEnd && bStart < aEnd;
     }
 
     private bool IsCompatible(InspectionType inspectionType, VehicleType vehicleType)
