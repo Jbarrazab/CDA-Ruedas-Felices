@@ -40,18 +40,18 @@ public class ClientService
         Console.WriteLine("Client updated successfully.");
     }
 
-    // Delete client by Id
-    public void Delete(Guid id)
+    // Delete client by Identification
+    public void DeleteByIdentification(string identification)
     {
-        var existing = _clientRepository.GetById(id);
+        var existing = _clientRepository.GetByIdentification(identification);
         if (existing == null)
         {
-            Console.WriteLine("Error: Client not found.");
+            Console.WriteLine("Error: Client not found with that identification.");
             return;
         }
 
-        _clientRepository.Delete(id);
-        Console.WriteLine("Client deleted successfully.");
+        _clientRepository.Delete(existing.Id);
+        Console.WriteLine("Client deleted successfully by identification.");
     }
 
     // List all clients

@@ -38,6 +38,16 @@ public class ClientRepository : IClientRepository
             _clients.Remove(client);
         }
     }
+    // Delete a client by Identification
+        public void DeleteByIdentification(string identification)
+    {
+        var client = _clients.FirstOrDefault(c => c.Identification == identification);
+        if (client != null)
+        {
+            _clients.Remove(client);
+        }
+    }
+
 
     // Get a client by Id
     public Client? GetById(Guid id)
