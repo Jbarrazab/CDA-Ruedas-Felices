@@ -139,7 +139,6 @@ Scheduling an Appointment
 The system uses a simulated email sender (EmailSender) that displays sent messages in the console.
 All email logs are stored in memory (Database.EmailLogs)
 and can be viewed through:
-
 Main Menu → Option 5 (Email Log)
 
 
