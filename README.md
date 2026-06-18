@@ -13,7 +13,7 @@ ensuring no duplicate records, validating compatibility, and maintaining a log o
 -  **Inspector Management:** Register, edit, and filter inspectors by inspection type.
 -  **Vehicle Management:** Register vehicles per client, validate unique plates, search by plate.
 -  **Appointment Management:** Schedule, cancel, complete, and validate conflicting appointments.
--  **Email System:** Simulates email notifications and keeps a full log of sent mesages.
+-  **Email System:** Simulates email notifications and keeps a full log of sent messages.
 -  **Layered Architecture:** Organized into `Models`, `Data`, `Interfaces`, `Repositories`, `Services`, and `Menus`.
 
 ---
@@ -70,7 +70,7 @@ ensuring no duplicate records, validating compatibility, and maintaining a log o
 
 ---
 
-## Installation and Execution
+## Installation and Execution **
 
 ## Installation
 
