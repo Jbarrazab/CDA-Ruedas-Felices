@@ -70,7 +70,7 @@ ensuring no duplicate records, validating compatibility, and maintaining a log o
 
 ---
 
-## Installation and Execution **
+## Installation and Execution ~~~
 
 ## Installation
 
